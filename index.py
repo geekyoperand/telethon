@@ -23,7 +23,7 @@ def unshorten_url(url):
 async def main():
     # messages = [];
     entity = await client.get_entity("teeeeeeesttttttttnmcfcnm");
-    # print("--1----")
+    print("--1----")
     @client.on(events.NewMessage(chats=channel_usernames))
     async def main(event):
         link_regex = re.compile(
