@@ -7,8 +7,8 @@ from urllib.parse import unquote
 
 api_id = 6487373
 api_hash = '700f3b0513f9a1a321b28d4eed4a4140'
-channel_usernames = ['Offerzone_deals', 'Loot_Offers_Dealss', 'Rishavtechnical', 'freekaamaalindia',
-                     'loottimes', 'bigtricksin', 'zingoy', 'Offerzone_Tricks', 'freekamaal7', 'kooltech007', 'gopaisadeals', 'deals_velocity_trending_stealsss', 'Deals_Point', 'CashKaroOfficialLootDeals', "best_loot_deals_sale_free", "thetestingphase"]
+channel_usernames = ['Offerzone_deals', 'Loot_Offers_Dealss', 'Rishavtechnical', 'freekaamaalindia', 'loottimes', 'bigtricksin', 'zingoy', 'Offerzone_Tricks', 'freekamaal7',
+                     'kooltech007', 'gopaisadeals', 'deals_velocity_trending_stealsss', 'Deals_Point', 'CashKaroOfficialLootDeals', "best_loot_deals_sale_free", "thetestingphase"]
 client = TelegramClient('session_name', api_id, api_hash).start()
 oldURLs = []
 
