@@ -89,6 +89,50 @@ def changeLinkID(unshortenedUrl, textUrl, text):
     return text
 
 
+def checkAndGenerate3rdPartyAffiliateLink(url, urlWithoutAffId, file):
+    isEkaroAffiliationURLCreated = 0
+    datalink = url
+    if "flipkart.com" in url:
+        datalink = urlWithoutAffId
+    headers = {
+        'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+        'accept-encoding': 'gzip, deflate, br',
+        'accept-language': 'en-US,en;q=0.9',
+        'cache-control': 'max-age=0',
+        'content-length': '115',
+        'content-type': 'application/x-www-form-urlencoded',
+        'cookie': 'WZRK_G=41ddfc5bc51e4635842e85473a24d323; _ga=GA1.2.1443534606.1633492495; _hjid=9fb22319-0954-4bbe-befa-6b44733ed1ae; _fbp=fb.1.1633492495898.933719531; WIGZO_LEARNER_ID=0391f13a-ec4c-4723-848c-06b3cafa24b0; _gid=GA1.2.76989648.1634885151; customerType=existing; fbm_442881609842304=base_domain=.earnkaro.com; PAGE_UUID=0391f13a-ec4c-4723-848c-06b3cafa24b0; RID=1776687; _hjAbsoluteSessionInProgress=0; pps_referance_cookie_e4adec0a3856cae8c9d623a3ee12d9ab=5b81c416ef181aa71d87a51796f45768%7C%7C1640200105%7C%7C1635017005%7C%7C6f28f5e33f795d30dbf4e17581e380e3; _gat_UA-22268078-28=1; __insp_wid=825490797; __insp_nv=true; __insp_targlpu=aHR0cHM6Ly9lYXJua2Fyby5jb20v; __insp_targlpt=U2hhcmUgTGluayBhbmQgTWFrZSBNb25leSBPbmxpbmUgfCBFYXJuIE1vbmV5IHdpdGggRWFybkthcm8%3D; WIGZO_DAILYACTIVE=Active; __insp_norec_sess=true; WZRK_S_466-77K-575Z=%7B%22p%22%3A2%2C%22s%22%3A1635016105%2C%22t%22%3A1635016109%7D; __insp_slim=1635016109214; X-PPS-Status=signed',
+        'origin': 'https://earnkaro.com',
+        'referer': 'https://earnkaro.com/create-earn-link',
+        'sec-ch-ua': '"Google Chrome";v="95", "Chromium";v="95", ";Not A Brand";v="99"',
+        'sec-ch-ua-mobile': '?0',
+        'sec-ch-ua-platform': '"Windows"',
+        'sec-fetch-dest': 'document',
+        'sec-fetch-mode': 'navigate',
+        'sec-fetch-site': 'same-origin',
+        'sec-fetch-user': '?1',
+        'upgrade-insecure-requests': '1',
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36'
+    }
+    payload = {
+        'deallink': datalink,
+        'responseMsg': ''
+    }
+
+    data = requests.post("https://earnkaro.com/create-earn-link",
+                         headers=headers, data=payload)
+    links = findAllLinks(data.text)
+    for lnk in links:
+        if "https://ekaro.in" in lnk[0]:
+            isEkaroAffiliationURLCreated = 1
+            file.write("Ekaro Status: Link Generated")
+            url = lnk[0]
+    if isEkaroAffiliationURLCreated == 0:
+        file.write("Ekaro Status: Link Not Generated\n")
+    file.write("Ekaro Link: {}".format(url))
+    return url
+
+
 async def main():
     entity = await client.get_entity("teeeeeeesttttttttnmcfcnm")
     print("Started Listening to the messages")
@@ -105,13 +149,13 @@ async def main():
                 url = unshorten_url(lnk[0])
                 file.write(
                     "original lnk[0]: {}\nUnshortened link {}\n".format(lnk[0], url))
-                if "youtube.com" in url or "telegram" in url or "telegram" in lnk[0] or "t.me" in lnk[0] or "kooltech.co.in" in lnk[0] or "offerzonelootdeals.com" in lnk[0]:
+                if "instagram.com" in url or "instagram.com" in lnk[0] or "youtube.com" in url or "telegram" in url or "telegram" in lnk[0] or "t.me" in lnk[0] or "kooltech.co.in" in lnk[0] or "offerzonelootdeals.com" in lnk[0]:
                     if "https://t.me" in lnk[0] or "telegram" in url or "telegram" in lnk[0]:
                         text = text.replace(
                             lnk[0], "https://t.me/thetestingphase")
                     else:
                         text = text.replace(lnk[0], '')
-                        count = count - 1
+                    count = count - 1
                     event.message.text = text
                 url = checkAndUpdateLinkRedirectURL(url, file)
                 file.write("final url: {}\n".format(url))
@@ -121,6 +165,8 @@ async def main():
                         print("---Already Posted----", urlParts[0])
                         file.write("Already Posted: {}\n".format(urlParts[0]))
                     else:
+                        url = checkAndGenerate3rdPartyAffiliateLink(
+                            url, urlParts[0], file)
                         event.message.text = changeLinkID(
                             url, lnk[0], event.message.text)
                         oldURLs.append(urlParts[0])
