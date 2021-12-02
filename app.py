@@ -8,9 +8,9 @@ import json
 
 api_id = 6487373
 api_hash = '700f3b0513f9a1a321b28d4eed4a4140'
-channel_usernames = ['Offerzone_deals', 'Loot_Offers_Dealss', 'Rishavtechnical', 'freekaamaalindia', 'loottimes', 'bigtricksin', 'zingoy', 'Offerzone_Tricks', 'freekamaal7',
-                     'kooltech007', 'gopaisadeals', 'deals_velocity_trending_stealsss', 'Deals_Point', 'CashKaroOfficialLootDeals', "Best_Loot_Deals_Sale_Free_Offers", "thetestingphase", "IrfanTechHelper"]
-client = TelegramClient('session_name', api_id, api_hash).start()
+channel_usernames = ["kooltech007", "Offerzone_deals", "Loot_Offers_Dealss", "Rishavtechnical", "freekaamaalindia", "loottimes", "bigtricksin", "zingoy", "Offerzone_Tricks", "thetestingphase",
+                     "freekamaal7", "gopaisadeals", "deals_velocity_trending_stealsss", "Deals_Point", "CashKaroOfficialLootDeals", "Best_Loot_Deals_Sale_Free_Offers", "IrfanTechHelper", "CKoffers", "rapid_loot_deal"]
+client = TelegramClient("session_name", api_id, api_hash).start()
 oldURLs = []
 
 
@@ -84,8 +84,11 @@ def changeLinkID(unshortenedUrl, textUrl, text):
     data = requests.post("https://bitly.com/data/anon_shorten",
                          headers=headers, data=payload)
     if data.status_code == 200:
+        print("-----unshortenedUrl-----", unshortenedUrl)
+        print("-----textUrl-----", textUrl)
         updatedUrl = json.loads(data.text)['data']['link']
         text = text.replace(textUrl, updatedUrl)
+        print("-----updatedUrl-----", updatedUrl)
     return text
 
 
@@ -134,7 +137,16 @@ def checkAndGenerate3rdPartyAffiliateLink(url, urlWithoutAffId, file):
 
 
 async def main():
-    entity = await client.get_entity("teeeeeeesttttttttnmcfcnm")
+    entity1 = await client.get_entity("teeeeeeesttttttttnmcfcnm")
+    entity2 = await client.get_entity("testttttttttttt10")
+    # entity3 = await client.get_entity("teeeeeeesttttttttnmcfcnm")
+    # entity4 = await client.get_entity("testttttttttttt10")
+    # entity5 = await client.get_entity("teeeeeeesttttttttnmcfcnm")
+    # entity6 = await client.get_entity("testttttttttttt10")
+    # entity7 = await client.get_entity("teeeeeeesttttttttnmcfcnm")
+    # entity8 = await client.get_entity("testttttttttttt10")
+    # entity9 = await client.get_entity("teeeeeeesttttttttnmcfcnm")
+    # entity10 = await client.get_entity("testttttttttttt10")
     print("Started Listening to the messages")
 
     @client.on(events.NewMessage(chats=channel_usernames))
@@ -148,20 +160,21 @@ async def main():
             for lnk in links:
                 url = unshorten_url(lnk[0])
                 file.write(
-                    "original lnk[0]: {}\nUnshortened link {}\n".format(lnk[0], url))
+                    "\n\noriginal lnk[0]: {}\nUnshortened link {}\n".format(lnk[0], url))
                 if "instagram.com" in url or "instagram.com" in lnk[0] or "youtube.com" in url or "telegram" in url or "telegram" in lnk[0] or "t.me" in lnk[0] or "kooltech.co.in" in lnk[0] or "offerzonelootdeals.com" in lnk[0]:
                     if "https://t.me" in lnk[0] or "telegram" in url or "telegram" in lnk[0]:
                         text = text.replace(
-                            lnk[0], "https://t.me/thetestingphase")
+                            lnk[0], "TELEGRAM_LINK_HERE")
                     else:
                         text = text.replace(lnk[0], '')
                     count = count - 1
                     event.message.text = text
                 url = checkAndUpdateLinkRedirectURL(url, file)
                 file.write("final url: {}\n".format(url))
-                if url is not None and len(url) > 0 and url.find("affiliates.sankmo.com") == -1:
+                if url is not None and len(url) > 0:
+                    # and url.find("affiliates.sankmo.com") == -1:
                     urlParts = url.split("?")
-                    if urlParts[0] in oldURLs:
+                    if url.find("affiliates.sankmo.com") == -1 and urlParts[0] in oldURLs:
                         print("---Already Posted----", urlParts[0])
                         file.write("Already Posted: {}\n".format(urlParts[0]))
                     else:
@@ -177,11 +190,41 @@ async def main():
                     file.write("oldURLs: {}\n".format(oldURLs))
             if count > 0 and notPosted > 0:
                 event.message.text = removeOriginalSources(event.message.text)
-                await client.send_message(entity=entity, message=event.message)
+                text = event.message.text
+                event.message.text = text.replace(
+                    "TELEGRAM_LINK_HERE", "https://t.me/thetestingphase")
+                await client.send_message(entity=entity1, message=event.message)
+                event.message.text = text.replace(
+                    "TELEGRAM_LINK_HERE", "https://t.me/thetestingphase")
+                await client.send_message(entity=entity2, message=event.message)
+                # event.message.text = text.replace(
+                #     "TELEGRAM_LINK_HERE", "https://t.me/thetestingphase")
+                # await client.send_message(entity=entity3, message=event.message)
+                # event.message.text = text.replace(
+                #     "TELEGRAM_LINK_HERE", "https://t.me/thetestingphase")
+                # await client.send_message(entity=entity4, message=event.message)
+                # event.message.text = text.replace(
+                #     "TELEGRAM_LINK_HERE", "https://t.me/thetestingphase")
+                # await client.send_message(entity=entity5, message=event.message)
+                # event.message.text = text.replace(
+                #     "TELEGRAM_LINK_HERE", "https://t.me/thetestingphase")
+                # await client.send_message(entity=entity6, message=event.message)
+                # event.message.text = text.replace(
+                #     "TELEGRAM_LINK_HERE", "https://t.me/thetestingphase")
+                # await client.send_message(entity=entity7, message=event.message)
+                # event.message.text = text.replace(
+                #     "TELEGRAM_LINK_HERE", "https://t.me/thetestingphase")
+                # await client.send_message(entity=entity8, message=event.message)
+                # event.message.text = text.replace(
+                #     "TELEGRAM_LINK_HERE", "https://t.me/thetestingphase")
+                # await client.send_message(entity=entity9, message=event.message)
+                # event.message.text = text.replace(
+                #     "TELEGRAM_LINK_HERE", "https://t.me/thetestingphase")
+                # await client.send_message(entity=entity10, message=event.message)
                 file.write("<== Posted ==>\n")
             else:
                 print(text)
-                file.write("text => {}\n".format(text))
+                file.write("\ntext => {}\n".format(text))
                 file.write("Count: {} and notPosted: {}\n".format(
                     count, notPosted))
                 file.write("<== Not Posted ==>\n")
