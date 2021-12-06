@@ -9,7 +9,7 @@ import json
 api_id = 6487373
 api_hash = '700f3b0513f9a1a321b28d4eed4a4140'
 channel_usernames = ["kooltech007", "Offerzone_deals", "Loot_Offers_Dealss", "Rishavtechnical", "freekaamaalindia", "loottimes", "bigtricksin", "zingoy", "Offerzone_Tricks", "thetestingphase",
-                     "freekamaal7", "gopaisadeals", "deals_velocity_trending_stealsss", "Deals_Point", "CashKaroOfficialLootDeals", "Best_Loot_Deals_Sale_Free_Offers", "IrfanTechHelper", "CKoffers", "rapid_loot_deal"]
+                     "freekamaal7", "gopaisadeals", "deals_velocity_trending_stealsss", "Deals_Point", "CashKaroOfficialLootDeals", "Best_Loot_Deals_Sale_Free_Offers", "IrfanTechHelper", "CKoffers", "rapid_loot_deal", "LootTalks", "ArifAnsar", "tech25withaman"]
 client = TelegramClient("session_name", api_id, api_hash).start()
 oldURLs = []
 
@@ -20,7 +20,7 @@ def unshorten_url(url):
 
 
 def isNotFlipkartQuiz(text):
-    return text.lower().find("ladies and gentlemen") == -1 and text.lower().find("kya bolti public") == -1 and text.lower().find("daam sahi hai") == -1 and text.lower().find("fake or not") == -1 and text.lower().find("fake or not fake") == -1 and text.lower().find("khel paheliyon ka") and text.lower().find("daam sahi hai") and text.lower().find("sirf ek minute")
+    return text.lower().find("ladies and gentlemen") == -1 and text.lower().find("kya bolti public") == -1 and text.lower().find("daam sahi hai") == -1 and text.lower().find("fake or not") == -1 and text.lower().find("fake or not fake") == -1 and text.lower().find("khel paheliyon ka") == -1 and text.lower().find("daam sahi hai") == -1 and text.lower().find("sirf ek minute") == -1
 
 
 def findAllLinks(text):
