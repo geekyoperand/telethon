@@ -137,16 +137,13 @@ def checkAndGenerate3rdPartyAffiliateLink(url, urlWithoutAffId, file):
 
 
 async def main():
-    entity1 = await client.get_entity("teeeeeeesttttttttnmcfcnm")
-    entity2 = await client.get_entity("testttttttttttt10")
-    # entity3 = await client.get_entity("teeeeeeesttttttttnmcfcnm")
-    # entity4 = await client.get_entity("testttttttttttt10")
-    # entity5 = await client.get_entity("teeeeeeesttttttttnmcfcnm")
-    # entity6 = await client.get_entity("testttttttttttt10")
-    # entity7 = await client.get_entity("teeeeeeesttttttttnmcfcnm")
-    # entity8 = await client.get_entity("testttttttttttt10")
-    # entity9 = await client.get_entity("teeeeeeesttttttttnmcfcnm")
-    # entity10 = await client.get_entity("testttttttttttt10")
+    entity1 = await client.get_entity("shopping_loot_offers_live_deals")
+    entity2 = await client.get_entity("deallootere")
+    entity3 = await client.get_entity("dealchor")
+    entity4 = await client.get_entity("freedealszone")
+    entity5 = await client.get_entity("freeshoppingzone")
+    entity6 = await client.get_entity("offers_flipkart_amazon_deals")
+    notposteddeals = await client.get_entity("notposted")
     print("Started Listening to the messages")
 
     @client.on(events.NewMessage(chats=channel_usernames))
@@ -155,10 +152,12 @@ async def main():
         links = findAllLinks(text)
         count = len(links)
         file = open("myfile.txt", "a", encoding="utf-8")
+        urlFile = open("allurls.txt", "a", encoding="utf-8")
         if isNotFlipkartQuiz(text):
             notPosted = 0
             for lnk in links:
                 url = unshorten_url(lnk[0])
+                urlFile.write("{}\n".format(url))
                 file.write(
                     "\n\noriginal lnk[0]: {}\nUnshortened link {}\n".format(lnk[0], url))
                 if "instagram.com" in url or "instagram.com" in lnk[0] or "youtube.com" in url or "telegram" in url or "telegram" in lnk[0] or "t.me" in lnk[0] or "kooltech.co.in" in lnk[0] or "offerzonelootdeals.com" in lnk[0]:
@@ -192,37 +191,27 @@ async def main():
                 event.message.text = removeOriginalSources(event.message.text)
                 text = event.message.text
                 event.message.text = text.replace(
-                    "TELEGRAM_LINK_HERE", "https://t.me/thetestingphase")
+                    "TELEGRAM_LINK_HERE", "https://t.me/shopping_loot_offers_live_deals")
                 await client.send_message(entity=entity1, message=event.message)
                 event.message.text = text.replace(
-                    "TELEGRAM_LINK_HERE", "https://t.me/thetestingphase")
+                    "TELEGRAM_LINK_HERE", "https://t.me/deallootere")
                 await client.send_message(entity=entity2, message=event.message)
-                # event.message.text = text.replace(
-                #     "TELEGRAM_LINK_HERE", "https://t.me/thetestingphase")
-                # await client.send_message(entity=entity3, message=event.message)
-                # event.message.text = text.replace(
-                #     "TELEGRAM_LINK_HERE", "https://t.me/thetestingphase")
-                # await client.send_message(entity=entity4, message=event.message)
-                # event.message.text = text.replace(
-                #     "TELEGRAM_LINK_HERE", "https://t.me/thetestingphase")
-                # await client.send_message(entity=entity5, message=event.message)
-                # event.message.text = text.replace(
-                #     "TELEGRAM_LINK_HERE", "https://t.me/thetestingphase")
-                # await client.send_message(entity=entity6, message=event.message)
-                # event.message.text = text.replace(
-                #     "TELEGRAM_LINK_HERE", "https://t.me/thetestingphase")
-                # await client.send_message(entity=entity7, message=event.message)
-                # event.message.text = text.replace(
-                #     "TELEGRAM_LINK_HERE", "https://t.me/thetestingphase")
-                # await client.send_message(entity=entity8, message=event.message)
-                # event.message.text = text.replace(
-                #     "TELEGRAM_LINK_HERE", "https://t.me/thetestingphase")
-                # await client.send_message(entity=entity9, message=event.message)
-                # event.message.text = text.replace(
-                #     "TELEGRAM_LINK_HERE", "https://t.me/thetestingphase")
-                # await client.send_message(entity=entity10, message=event.message)
+                event.message.text = text.replace(
+                    "TELEGRAM_LINK_HERE", "https://t.me/dealchor")
+                await client.send_message(entity=entity3, message=event.message)
+                event.message.text = text.replace(
+                    "TELEGRAM_LINK_HERE", "https://t.me/freedealszone")
+                await client.send_message(entity=entity4, message=event.message)
+                event.message.text = text.replace(
+                    "TELEGRAM_LINK_HERE", "https://t.me/freeshoppingzone")
+                await client.send_message(entity=entity5, message=event.message)
+                event.message.text = text.replace(
+                    "TELEGRAM_LINK_HERE", "https://t.me/offers_flipkart_amazon_deals")
+                await client.send_message(entity=entity6, message=event.message)
                 file.write("<== Posted ==>\n")
             else:
+                event.message.text = text
+                await client.send_message(entity=notposteddeals, message=event.message)
                 print(text)
                 file.write("\ntext => {}\n".format(text))
                 file.write("Count: {} and notPosted: {}\n".format(
