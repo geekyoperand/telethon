@@ -8,8 +8,8 @@ import json
 
 api_id = 6487373
 api_hash = '700f3b0513f9a1a321b28d4eed4a4140'
-channel_usernames = ["kooltech007", "Offerzone_deals", "Loot_Offers_Dealss", "Rishavtechnical", "freekaamaalindia", "loottimes", "bigtricksin", "zingoy", "Offerzone_Tricks", "thetestingphase",
-                     "freekamaal7", "gopaisadeals", "deals_velocity_trending_stealsss", "Deals_Point", "CashKaroOfficialLootDeals", "Best_Loot_Deals_Sale_Free_Offers", "IrfanTechHelper", "CKoffers", "rapid_loot_deal", "LootTalks", "ArifAnsar", "tech25withaman","loots_point","PremiumDealsX","roobaiofficial"]
+channel_usernames = ["kooltech007", "Offerzone_deals", "Loot_Offers_Dealss", "Rishavtechnical", "freekaamaalindia", "loottimes", "bigtricksin", "zingoy","Offerzone_Tricks_1","offerzone_Offerzone_Tricks",
+                     "freekamaal7", "gopaisadeals", "loots_point", "Deals_Point", "IrfanTechHelper", "CKoffers", "rapid_loot_deal", "LootTalks", "ArifAnsar", "tech25withaman","PremiumDealsX","roobaiofficial"]
 client = TelegramClient("session_name", api_id, api_hash).start()
 oldURLs = []
 
