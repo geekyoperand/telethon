@@ -57,38 +57,38 @@ def removeOriginalSources(text):
 
 
 def changeLinkID(unshortenedUrl, textUrl, text):
-    updatedUrl = unshortenedUrl
-    headers = {
-        'accept': 'application/json, text/javascript, */*; q=0.01',
-        'accept-encoding': 'gzip, deflate, br',
-        'accept-language': 'en-US,en;q=0.9',
-        'content-length': '454',
-        'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
-        'cookie': '_xsrf=5f7720bfcf79491fbe48d06c6ee45f5e; anon_u=cHN1X19lNDhjNTdjNi1hYzIxLTQ2MzAtYmFmZi05MTkzNjVkODQ0MWE=|1634892423|ee2d4502a4ec8d09e2766a372630b99b96ee8b2f; optimizelyEndUserId=oeu1634892421291r0.43377463188643617; _gcl_au=1.1.1069873274.1634892422; _mkto_trk=id:754-KBJ-733&token:_mch-bitly.com-1634892422140-61949; _ga=GA1.2.1729876833.1634892422; _gid=GA1.2.1321869772.1634892422; wow-modal-id-10=yes; anon_shortlinks=https://go.aws/3GdnfQD,https://amzn.to/2ZeoEp2; cookie_banner=1; _ga_567GCTL9BB=GS1.1.1634892421.1.1.1634892494.60',
-        'origin': 'https://bitly.com',
-        'referer': 'https://bitly.com/',
-        'sec-ch-ua': '"Google Chrome";v="95", "Chromium";v="95", ";Not A Brand";v="99"',
-        'sec-ch-ua-mobile': '?0',
-        'sec-ch-ua-platform': '"Windows"',
-        'sec-fetch-dest': 'empty',
-        'sec-fetch-mode': 'cors',
-        'sec-fetch-site': 'same-origin',
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36',
-        'x-requested-with': 'XMLHttpRequest',
-        'x-xsrftoken': '5f7720bfcf79491fbe48d06c6ee45f5e'
-    }
-    payload = {
-        'url': unshortenedUrl
-    }
+    # updatedUrl = unshortenedUrl
+    # headers = {
+    #     "accept": "application/json, text/javascript, */*; q=0.01",
+    #     "accept-encoding": "gzip, deflate, br",
+    #     "accept-language": "en-GB,en-US;q=0.9,en;q=0.8",
+    #     "content-length": "47",
+    #     "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+    #     "cookie": "_xsrf=00d260fbf3f64b9bb158f8dcc4069c0b; anon_u=cHN1X19iZDk2MWFiYS1jNzQyLTRlZDgtOGQxMi02OGI2NzhiMDhjNzg=|1662755201|64a101c4c96477321346e343172717cfef759c5a; _gcl_au=1.1.989150232.1662755203; optimizelyEndUserId=oeu1662755203014r0.6117418209273864; _gid=GA1.2.797823653.1662755203; _sp_ses.741f=*; _ga_567GCTL9BB=GS1.1.1662755203.1.1.1662755204.59.0.0; _ga=GA1.1.318024360.1662755203; _fbp=fb.1.1662755205479.628329990; _hjSessionUser_3068185=eyJpZCI6ImQ2ODFlOTExLTI4MDgtNWQzZS04ODhhLTk0ODNiOThjODBiYSIsImNyZWF0ZWQiOjE2NjI3NTUyMDU2NzMsImV4aXN0aW5nIjpmYWxzZX0=; _hjFirstSeen=1; _hjIncludedInSessionSample=0; _hjSession_3068185=eyJpZCI6IjQxMWFkNTg5LTlmMDYtNDkwZS1hMTI2LTFkMjI1N2UxODRlZCIsImNyZWF0ZWQiOjE2NjI3NTUyMDU4MzgsImluU2FtcGxlIjpmYWxzZX0=; _hjAbsoluteSessionInProgress=0; _sp_id.741f=70e76ff1-309a-415e-8238-c553cf108a5f.1662755204.1.1662755245.1662755204.86dd5ad9-962c-426c-957c-a1f8a3b47974",
+    #     "origin": "https://bitly.com",
+    #     "referer": "https://bitly.com/pages/home/v1",
+    #     "sec-ch-ua": '"Google Chrome";v="105", "Not)A;Brand";v="8", "Chromium";v="105"',
+    #     "sec-ch-ua-mobile": "?0",
+    #     "sec-ch-ua-platform": '"macOS"',
+    #     "sec-fetch-dest": "empty",
+    #     "sec-fetch-mode": "cors",
+    #     "sec-fetch-site": "same-origin",
+    #     "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36",
+    #     "x-requested-with": "XMLHttpRequest",
+    #     "x-xsrftoken": "00d260fbf3f64b9bb158f8dcc4069c0b",
+    # }
+    # payload = {
+    #     'url': unshortenedUrl
+    # }
 
-    data = requests.post("https://bitly.com/data/anon_shorten",
-                         headers=headers, data=payload)
-    if data.status_code == 200:
-        print("-----unshortenedUrl-----", unshortenedUrl)
-        print("-----textUrl-----", textUrl)
-        updatedUrl = json.loads(data.text)['data']['link']
-        text = text.replace(textUrl, updatedUrl)
-        print("-----updatedUrl-----", updatedUrl)
+    # data = requests.post("https://bitly.com/data/anon_shorten",
+    #                      headers=headers, data=payload)
+    # if data.status_code == 200:
+    #     print("-----unshortenedUrl-----", unshortenedUrl)
+    #     print("-----textUrl-----", textUrl)
+    #     updatedUrl = json.loads(data.text)['data']['link']
+    #     text = text.replace(textUrl, updatedUrl)
+    #     print("-----updatedUrl-----", updatedUrl)
     return text
 
 
