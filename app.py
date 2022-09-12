@@ -13,7 +13,7 @@ api_hash = '700f3b0513f9a1a321b28d4eed4a4140'
 channel_usernames = [
     "kooltech007", "Flipkart_Shopping_Loots_Deals", "Loot_Offers_Dealss", "Rishavtechnical", "freekaamaalindia", "loottimes", "bigtricksin", "zingoy",
     "Offerzone_Tricks_1", "offerzone_Offerzone_Tricks", "freekamaal7", "gopaisadeals", "loots_point", "Deals_Point", "IrfanTechHelper", "CKoffers",
-    "ArifAnsar", "tech25withaman", "PremiumDealsX", "roobaiofficial"
+    "ArifAnsar", "tech25withaman", "PremiumDealsX", "roobaiofficial", "dealchor"
 ]
 client = TelegramClient("session_name", api_id, api_hash).start()
 oldURLs = []
@@ -144,9 +144,9 @@ def checkAndGenerate3rdPartyAffiliateLink(url, urlWithoutAffId, file):
 async def main():
     entity1 = await client.get_entity("shopping_loot_offers_live_deals")
     entity2 = await client.get_entity("deallootere")
-    entity3 = await client.get_entity("dealchor")
+    # entity3 = await client.get_entity("dealchor")
     entity4 = await client.get_entity("freedealszone")
-    entity5 = await client.get_entity("offers_mart")
+    entity5 = await client.get_entity("Amazon_Shopping_Loots_Deals")
     entity6 = await client.get_entity("offers_flipkart_amazon_deals")
     notposteddeals = await client.get_entity("notposted")
     print("Started Listening to the messages")
@@ -209,9 +209,9 @@ async def main():
                 event.message.text = text.replace(
                     "TELEGRAM_LINK_HERE", "https://t.me/deallootere")
                 await client.send_message(entity=entity2, message=event.message)
-                event.message.text = text.replace(
-                    "TELEGRAM_LINK_HERE", "https://t.me/dealchor")
-                await client.send_message(entity=entity3, message=event.message)
+                # event.message.text = text.replace(
+                #     "TELEGRAM_LINK_HERE", "https://t.me/dealchor")
+                # await client.send_message(entity=entity3, message=event.message)
                 event.message.text = text.replace(
                     "TELEGRAM_LINK_HERE", "https://t.me/freedealszone")
                 await client.send_message(entity=entity4, message=event.message)
