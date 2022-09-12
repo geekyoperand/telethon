@@ -5,6 +5,8 @@ from telethon.tl import functions, types
 import requests
 from urllib.parse import unquote
 import json
+# from PIL import Image
+# import io
 
 api_id = 6487373
 api_hash = '700f3b0513f9a1a321b28d4eed4a4140'
@@ -144,7 +146,7 @@ async def main():
     entity2 = await client.get_entity("deallootere")
     entity3 = await client.get_entity("dealchor")
     entity4 = await client.get_entity("freedealszone")
-    entity5 = await client.get_entity("freeshoppingzone")
+    entity5 = await client.get_entity("offers_mart")
     entity6 = await client.get_entity("offers_flipkart_amazon_deals")
     notposteddeals = await client.get_entity("notposted")
     print("Started Listening to the messages")
@@ -152,6 +154,14 @@ async def main():
     @client.on(events.NewMessage(chats=channel_usernames))
     async def main(event):
         text = event.message.text
+        # print(event.message)
+        # message = event.message
+        # print("-wowow----")
+        # if message.photo:
+        #     print('File Name1 :' + message.id)
+        #     print('File Name :' + str(message.file.name))
+        #     path = await client.download_media(message.media, "/Users/nitinmalhotra/telethon/1")
+        #     print('File saved to', path)
         links = findAllLinks(text)
         count = len(links)
         file = open("myfile.txt", "a", encoding="utf-8")
