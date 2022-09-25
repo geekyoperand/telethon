@@ -42,12 +42,12 @@ def checkAndUpdateLinkRedirectURL(url, file):
             url = link_redirect_urls[2][0]
         else:
             url = ""
-        file.write("linkredirect.in conversion => : {}\n".format(url))
+        # file.write("linkredirect.in conversion => : {}\n".format(url))
     if url.find("traqkar.com") != -1:
         splittedUrls = url.split("ckmrdr=")
         url = splittedUrls[1]
         url = unquote(url)
-        file.write("traqkar.com conversion => : {}\n".format(url))
+        # file.write("traqkar.com conversion => : {}\n".format(url))
 
     return url
 
@@ -133,11 +133,11 @@ def checkAndGenerate3rdPartyAffiliateLink(url, urlWithoutAffId, file):
     for lnk in links:
         if "https://ekaro.in" in lnk[0]:
             isEkaroAffiliationURLCreated = 1
-            file.write("Ekaro Status: Link Generated")
+            # file.write("Ekaro Status: Link Generated")
             url = lnk[0]
-    if isEkaroAffiliationURLCreated == 0:
-        file.write("Ekaro Status: Link Not Generated\n")
-    file.write("Ekaro Link: {}".format(url))
+    # if isEkaroAffiliationURLCreated == 0:
+        # file.write("Ekaro Status: Link Not Generated\n")
+    # file.write("Ekaro Link: {}".format(url))
     return url
 
 
@@ -170,9 +170,9 @@ async def main():
             notPosted = 0
             for lnk in links:
                 url = unshorten_url(lnk[0])
-                urlFile.write("{}\n".format(url))
-                file.write(
-                    "\n\noriginal lnk[0]: {}\nUnshortened link {}\n".format(lnk[0], url))
+                # urlFile.write("{}\n".format(url))
+                # file.write(
+                #     "\n\noriginal lnk[0]: {}\nUnshortened link {}\n".format(lnk[0], url))
                 if "instagram.com" in url or "instagram.com" in lnk[0] or "youtube.com" in url or "telegram" in url or "telegram" in lnk[0] or "t.me" in lnk[0] or "kooltech.co.in" in lnk[0] or "offerzonelootdeals.com" in lnk[0]:
                     if "https://t.me" in lnk[0] or "telegram" in url or "telegram" in lnk[0]:
                         text = text.replace(
@@ -182,13 +182,13 @@ async def main():
                     count = count - 1
                     event.message.text = text
                 url = checkAndUpdateLinkRedirectURL(url, file)
-                file.write("final url: {}\n".format(url))
+                # file.write("final url: {}\n".format(url))
                 if url is not None and len(url) > 0:
                     # and url.find("affiliates.sankmo.com") == -1:
                     urlParts = url.split("?")
                     if url.find("affiliates.sankmo.com") == -1 and urlParts[0] in oldURLs:
                         print("---Already Posted----", urlParts[0])
-                        file.write("Already Posted: {}\n".format(urlParts[0]))
+                        # file.write("Already Posted: {}\n".format(urlParts[0]))
                     else:
                         url = checkAndGenerate3rdPartyAffiliateLink(
                             url, urlParts[0], file)
@@ -199,7 +199,7 @@ async def main():
                         if len(oldURLs) == 10000:
                             oldURLs.pop()
                     print(len(oldURLs))
-                    file.write("oldURLs: {}\n".format(oldURLs))
+                    # file.write("oldURLs: {}\n".format(oldURLs))
             if count > 0 and notPosted > 0:
                 event.message.text = removeOriginalSources(event.message.text)
                 text = event.message.text
@@ -221,16 +221,16 @@ async def main():
                 event.message.text = text.replace(
                     "TELEGRAM_LINK_HERE", "https://t.me/offers_flipkart_amazon_deals")
                 await client.send_message(entity=entity6, message=event.message)
-                file.write("<== Posted ==>\n")
+                # file.write("<== Posted ==>\n")
             else:
                 event.message.text = text
                 await client.send_message(entity=notposteddeals, message=event.message)
                 print(text)
-                file.write("\ntext => {}\n".format(text))
-                file.write("Count: {} and notPosted: {}\n".format(
-                    count, notPosted))
-                file.write("<== Not Posted ==>\n")
-            file.write("--------------------\n\n\n")
+                # file.write("\ntext => {}\n".format(text))
+                # file.write("Count: {} and notPosted: {}\n".format(
+                #     count, notPosted))
+                # file.write("<== Not Posted ==>\n")
+            # file.write("--------------------\n\n\n")
 
 loop = asyncio.get_event_loop()
 loop.run_until_complete(main())
